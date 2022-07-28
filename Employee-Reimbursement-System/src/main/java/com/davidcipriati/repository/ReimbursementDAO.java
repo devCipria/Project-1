@@ -4,7 +4,7 @@ import com.davidcipriati.model.Reimbursement;
 
 import java.util.List;
 
-public interface RepositoryDAO {
+public interface ReimbursementDAO {
     int createReimbursement(Reimbursement reimbursement);
     int updatePendingReimbursement(int reimbursementId);
     List<Reimbursement> findAllPendingByUserId(int userId);
