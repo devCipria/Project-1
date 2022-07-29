@@ -3,6 +3,8 @@ package com.davidcipriati.repository;
 import com.davidcipriati.model.User;
 import com.davidcipriati.utils.ConnectionManager;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO{
+    private DataSource dataSource;
+
+    public UserDAOImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public List<User> findAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (Connection connection = ConnectionManager.getConnection()) {
+//        try (Connection connection = ConnectionManager.getConnection()) {
+//        try (Connection connection = dataSource.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
             String sql = "select user_id, username, password, first_name, last_name, email, role from users";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

@@ -1,6 +1,6 @@
 package com.davidcipriati.model;
 
-public class Users {
+public class User {
     private int userId;
     private String username;
     private String password;
@@ -9,7 +9,7 @@ public class Users {
     private String email;
     private String role;
 
-    public Users(String username, String password, String firstName, String lastName, String email, String role) {
+    public User(String username, String password, String firstName, String lastName, String email, String role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -18,7 +18,7 @@ public class Users {
         this.role = role;
     }
 
-    public Users(int userId, String username, String password, String firstName, String lastName, String email, String role) {
+    public User(int userId, String username, String password, String firstName, String lastName, String email, String role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
