@@ -1,19 +1,32 @@
 package com.davidcipriati.service;
 
 import com.davidcipriati.model.User;
-import com.davidcipriati.repository.UserDAO;
-import com.davidcipriati.repository.UserDAOImpl;
+import com.davidcipriati.repository.IUserRepository;
 
 import java.util.List;
 
 public class UserService {
-    private UserDAO userDAO;
+    private IUserRepository repo;
 
-    public UserService(UserDAO userDAOImpl) {
-        this.userDAO = userDAOImpl;
+    public UserService(IUserRepository userRepository) {
+        this.repo = userRepository;
     }
 
     public List<User> getAllEmployees() {
-        return userDAO.findAllUsers();
+        return repo.findAllUsers();
+    }
+
+    public boolean validateUser(String username, String password) {
+        User user = repo.findUserByUsername(username);
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public User getUserByUsername(String username) {
+        return repo.findUserByUsername(username);
     }
 }

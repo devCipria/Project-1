@@ -3,7 +3,6 @@ package com.davidcipriati.repository;
 import com.davidcipriati.model.User;
 import com.davidcipriati.utils.ConnectionManager;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO{
+public class UserRepository implements IUserRepository {
     private DataSource dataSource;
 
-    public UserDAOImpl(DataSource dataSource) {
+    public UserRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

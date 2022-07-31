@@ -1,23 +1,27 @@
 package com.davidcipriati.service;
 
 import com.davidcipriati.model.Reimbursement;
-import com.davidcipriati.repository.ReimbursementDAO;
+import com.davidcipriati.repository.IReimbursementRepository;
 
 import java.util.List;
 
 public class ReimbursementService {
-    private ReimbursementDAO reimbursementDAO;
+    private IReimbursementRepository IReimbursementRepository;
 
-    public ReimbursementService(ReimbursementDAO reimbursementDAOImpl) {
-        this.reimbursementDAO = reimbursementDAOImpl;
+    public ReimbursementService(IReimbursementRepository reimbursementRepository) {
+        this.IReimbursementRepository = reimbursementRepository;
     }
 
     public List<Reimbursement> getAllPendingReimbursements() {
-        return reimbursementDAO.findAllPending();
+        return IReimbursementRepository.findAllPending();
+    }
+
+    public List<Reimbursement> getAllResolvedReimbursements() {
+        return IReimbursementRepository.findAllResolved();
     }
 
     public List<Reimbursement> getAllPendingByUserId(int userId) {
-        return reimbursementDAO.findAllByUserId(userId);
+        return IReimbursementRepository.findAllByUserId(userId);
     }
 
 }

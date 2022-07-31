@@ -3,6 +3,7 @@ package com.davidcipriati.repository;
 import com.davidcipriati.model.Reimbursement;
 import com.davidcipriati.utils.ConnectionManager;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReimbursementDAOImpl implements ReimbursementDAO{
+public class ReimbursementRepository implements IReimbursementRepository {
+    private DataSource dataSource;
+
+    public ReimbursementRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+
     @Override
     public int createReimbursement(Reimbursement reimbursement) {
         int id = -1;
@@ -121,7 +129,8 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
     @Override
     public List<Reimbursement> findAllPending() {
         List<Reimbursement> pendingList = new ArrayList<>();
-        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
             String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where status='Pending'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -145,6 +154,36 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
         }
 
             return pendingList;
+    }
+
+    @Override
+    public List<Reimbursement> findAllResolved() {
+        List<Reimbursement> resolvedList = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where status='Resolved'";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Reimbursement reimbursement = new Reimbursement(
+                        rs.getInt("reimb_id"),
+                        rs.getFloat("amount"),
+                        rs.getString("description"),
+                        rs.getInt("author_id"),
+                        rs.getInt("resolver_id"),
+                        rs.getString("status"),
+                        rs.getString("type")
+                );
+                resolvedList.add(reimbursement);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // logging
+        }
+
+        return resolvedList;
     }
 
     @Override
