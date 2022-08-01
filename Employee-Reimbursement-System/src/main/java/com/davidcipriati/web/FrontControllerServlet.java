@@ -42,31 +42,51 @@ public class FrontControllerServlet extends HttpServlet {
             case "/ers/login":
                 if (request.getMethod().equals("POST")) {
                     loginController.login(request, response);
-                    break;
                 }
+                break;
             case "/ers/manager/employees":
                 // pass to ManagerController
                 if (request.getMethod().equals("GET")) {
                     managerController.showEmployeeList(request, response);
-                    break;
                 }
+                break;
             case "/ers/manager/requests/pending":
                 if (request.getMethod().equals("GET")) {
                     managerController.showAllPendingFromAllEmployees(request, response);
-                    break;
                 }
+                break;
             case "/ers/manager/requests/resolved":
                 if (request.getMethod().equals("GET")) {
                     managerController.showAllResolvedFromAllEmployees(request, response);
-                    break;
                 }
+                break;
             case "/ers/employee/profile":
                 if (request.getMethod().equals("GET")) {
                     userController.showProfile(request, response);
-                    break;
                 }
+                break;
+            case "/ers/employee/profile/update":
+                if (request.getMethod().equals("PUT")) {
+                    userController.editEmployeeProfile(request, response);
+                }
+                break;
+            case "/ers/employee/requests/submit":
+                if (request.getMethod().equals("POST")) {
+                    userController.submitRequest(request, response);
+                }
+                break;
+            case "/ers/employee/requests/pending":
+                if (request.getMethod().equals("GET")) {
+                    userController.showPendingRequestsByUserId(request, response);
+                }
+                break;
+            case "/ers/employee/requests/resolved":
+                if (request.getMethod().equals("GET")) {
+                    userController.showResolvedRequestsByUserId(request, response);
+                }
+                break;
+            case "/ers/logout":
+                loginController.logout(request, response);
         }
-
-
     }
 }

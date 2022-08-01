@@ -8,5 +8,5 @@ public interface IUserRepository {
     List<User> findAllUsers(); // should it be findAllEmployees ?
 //    User findUserById(int id);
     User findUserByUsername(String username);
-    int updateById(int id);
+    boolean updateUser(User user);
 }

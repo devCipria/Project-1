@@ -1,13 +1,9 @@
 package com.davidcipriati.repository;
 
 import com.davidcipriati.model.Reimbursement;
-import com.davidcipriati.utils.ConnectionManager;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +17,16 @@ public class ReimbursementRepository implements IReimbursementRepository {
 
     @Override
     public int createReimbursement(Reimbursement reimbursement) {
-        int id = -1;
-        try (Connection connection = ConnectionManager.getConnection()) {
-            String sql = "insert into reimbursement (amount, description, author_id, resolver_id, status, type)" +
-                    " values (?, ?, ?, ?, ?, ?)";
-            String idSql = "select max(reimb_id) as id from reimbursement";
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "insert into reimbursement (amount, description, author_id, resolver_id, status, type) values (?, ?, ?, ?, ?, ?)";
+            String idSql = "select max(reimb_id) as reimb_id from reimbursement";
 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setFloat(1, reimbursement.getAmount());
             ps.setString(2, reimbursement.getDescription());
             ps.setInt(3, reimbursement.getAuthorId());
-            ps.setInt(4, reimbursement.getResolverId());
+            ps.setNull(4, Types.NULL);
             ps.setString(5, reimbursement.getStatus());
             ps.setString(6, reimbursement.getType());
 
@@ -40,14 +35,16 @@ public class ReimbursementRepository implements IReimbursementRepository {
             ps = connection.prepareStatement(idSql);
             ResultSet rs = ps.executeQuery();
 
+            int id = -1;
             while (rs.next()) {
-                id = rs.getInt("id");
+                id = rs.getInt("reimb_id");
             }
+            return id;
         } catch (SQLException e) {
             e.printStackTrace();
             // logging
         }
-        return id;
+        return -1;
     }
 
     // wrong you have to know the resolver_id
@@ -56,7 +53,9 @@ public class ReimbursementRepository implements IReimbursementRepository {
     @Override
     public int updatePendingReimbursement(int reimbursementId) {
         int row = -1;
-        try (Connection connection = ConnectionManager.getConnection()) {
+//        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,8 +68,10 @@ public class ReimbursementRepository implements IReimbursementRepository {
     @Override
     public List<Reimbursement> findAllPendingByUserId(int userId) {
         List<Reimbursement> pendingList = new ArrayList<>();
-        try (Connection connection = ConnectionManager.getConnection()) {
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where user_id=? AND status='Pending'";
+//        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=? AND status='Pending'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -99,8 +100,10 @@ public class ReimbursementRepository implements IReimbursementRepository {
     @Override
     public List<Reimbursement> findAllResolvedByUserId(int userId) {
         List<Reimbursement> resolvedList = new ArrayList<>();
-        try (Connection connection = ConnectionManager.getConnection()) {
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where user_id=? AND status='Resolved'";
+//        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=? AND status='Resolved'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -189,8 +192,10 @@ public class ReimbursementRepository implements IReimbursementRepository {
     @Override
     public List<Reimbursement> findAllByUserId(int userId) {
         List<Reimbursement> reimbursementList = new ArrayList<>();
-        try (Connection connection = ConnectionManager.getConnection()) {
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where user_id=?";
+//        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -214,5 +219,35 @@ public class ReimbursementRepository implements IReimbursementRepository {
         }
 
         return reimbursementList;
+    }
+
+    @Override
+    public Reimbursement findByReimbursementId(int reimbID) {
+        Reimbursement reimbursement = null;
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where reimb_id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, reimbID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                reimbursement = new Reimbursement(
+                        rs.getInt("reimb_id"),
+                        rs.getFloat("amount"),
+                        rs.getString("description"),
+                        rs.getInt("author_id"),
+                        rs.getInt("resolver_id"),
+                        rs.getString("status"),
+                        rs.getString("type")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // logging
+        }
+
+        return reimbursement;
     }
 }

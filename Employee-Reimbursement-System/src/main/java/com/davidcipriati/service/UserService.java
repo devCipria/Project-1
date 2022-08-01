@@ -29,4 +29,8 @@ public class UserService {
     public User getUserByUsername(String username) {
         return repo.findUserByUsername(username);
     }
+
+    public boolean editUserProfile(User user) {
+        return repo.updateUser(user);
+    }
 }

@@ -1,7 +1,6 @@
 package com.davidcipriati.repository;
 
 import com.davidcipriati.model.User;
-import com.davidcipriati.utils.ConnectionManager;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -51,7 +50,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findUserByUsername(String username) {
         User user = null;
-        try (Connection connection = ConnectionManager.getConnection()) {
+//        try (Connection connection = ConnectionManager.getConnection()) {
+        try {
+            Connection connection = dataSource.getConnection();
             String sql = "select user_id, username, password, first_name, last_name, email, role from users where username=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
@@ -77,7 +78,27 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public int updateById(int id) {
-        return 0;
+    public boolean updateUser(User user) {
+        boolean updated = false;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "update users set username=?,  password=?, first_name=?, last_name=?, email=?, role=? where user_id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFirstName());
+            ps.setString(4, user.getLastName());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, user.getRole());
+            ps.setInt(7, user.getUserId());
+
+            updated = ps.executeUpdate() != 0 ? true : false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // logging
+        }
+        return updated;
     }
 }

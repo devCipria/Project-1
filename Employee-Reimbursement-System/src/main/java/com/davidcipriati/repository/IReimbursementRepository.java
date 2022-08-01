@@ -12,4 +12,6 @@ public interface IReimbursementRepository {
     List<Reimbursement> findAllPending();
     List<Reimbursement> findAllResolved();
     List<Reimbursement> findAllByUserId(int userId);
+
+    Reimbursement findByReimbursementId(int id);
 }

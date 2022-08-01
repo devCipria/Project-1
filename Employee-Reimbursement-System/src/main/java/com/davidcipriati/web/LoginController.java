@@ -52,4 +52,9 @@ public class LoginController {
 
         }
     }
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().setAttribute("validatedUser", null);
+        request.getSession().invalidate();
+        response.setStatus(200);
+    }
 }

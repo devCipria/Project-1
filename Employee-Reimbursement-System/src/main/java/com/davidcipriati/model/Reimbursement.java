@@ -3,15 +3,17 @@ package com.davidcipriati.model;
 import java.math.BigDecimal;
 
 public class Reimbursement {
-    private int reimbursementId;
-    private float amount;
+    private Integer reimbursementId;
+    private Float amount;
     private String description;
-    private int authorId;
-    private int resolverId;
+    private Integer authorId;
+    private Integer resolverId;
     private String status;
     private String type;
 
-    public Reimbursement(float amount, String description, int authorId, int resolverId, String status, String type) {
+    public Reimbursement(){}
+
+    public Reimbursement(Float amount, String description, Integer authorId, Integer resolverId, String status, String type) {
         this.amount = amount;
         this.description = description;
         this.authorId = authorId;
@@ -20,7 +22,7 @@ public class Reimbursement {
         this.type = type;
     }
 
-    public Reimbursement(int reimbursementId, float amount, String description, int authorId, int resolverId, String status, String type) {
+    public Reimbursement(Integer reimbursementId, Float amount, String description, Integer authorId, Integer resolverId, String status, String type) {
         this.reimbursementId = reimbursementId;
         this.amount = amount;
         this.description = description;
@@ -30,19 +32,19 @@ public class Reimbursement {
         this.type = type;
     }
 
-    public int getReimbursementId() {
+    public Integer getReimbursementId() {
         return reimbursementId;
     }
 
-    public void setReimbursementId(int reimbursementId) {
+    public void setReimbursementId(Integer reimbursementId) {
         this.reimbursementId = reimbursementId;
     }
 
-    public float getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -54,19 +56,19 @@ public class Reimbursement {
         this.description = description;
     }
 
-    public int getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
-    public int getResolverId() {
+    public Integer getResolverId() {
         return resolverId;
     }
 
-    public void setResolverId(int resolverId) {
+    public void setResolverId(Integer resolverId) {
         this.resolverId = resolverId;
     }
 
