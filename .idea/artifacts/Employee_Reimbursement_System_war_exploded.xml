@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Employee-Reimbursement-System:war exploded">
+    <output-path>$PROJECT_DIR$/Employee-Reimbursement-System/target/Employee-Reimbursement-System</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>Employee-Reimbursement-System</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Employee-Reimbursement-System" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.4.0" />
+          <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.3" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.18.0" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.18.0" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/Employee-Reimbursement-System/target/Employee-Reimbursement-System/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="Employee-Reimbursement-System/web/Web" />
+    </root>
+  </artifact>
+</component>

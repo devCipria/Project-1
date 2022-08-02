@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ers/*")
+//@WebServlet(urlPatterns = "/ers/*")
+@WebServlet(urlPatterns = {"/ers/*", "/ers/manager/requests/employee/*"})
 public class FrontControllerServlet extends HttpServlet {
     // put 1 ObjectMapper in ContextListener
     private ObjectMapper om;
@@ -36,7 +37,24 @@ public class FrontControllerServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String URI = request.getRequestURI();
         System.out.println(URI);
+//        System.out.println("getContextPath(): " + request.getContextPath());
         System.out.println(request.getMethod());
+        System.out.println("getPathInfo(): " + request.getPathInfo());
+        String pathVar = request.getPathInfo();
+
+        // if URI contains /ers/manager/requests/employee/
+
+        if (URI.contains("/ers/manager/requests/employee/") && pathVar !=  null) {
+            System.out.println("****** Inside the IF Statemtn ******");
+            URI = request.getRequestURI().replace(pathVar, "");
+            pathVar = pathVar.replace("/", "");
+            System.out.println(pathVar);
+            System.out.println(URI);
+        }
+
+
+        // if url contains a path parameter, strip it out.
+        // put the path parameter in an id variable.
 
         switch (URI) {
             case "/ers/login":
@@ -58,6 +76,19 @@ public class FrontControllerServlet extends HttpServlet {
             case "/ers/manager/requests/resolved":
                 if (request.getMethod().equals("GET")) {
                     managerController.showAllResolvedFromAllEmployees(request, response);
+                }
+                break;
+            case "/ers/manager/requests/employee":
+                System.out.println("hello, hello, hello");
+                if (request.getMethod().equals("GET")) {
+//                    int id = pathVar;
+                    try {
+//                        id = Integer.parseInt(request.getRequestURI().split("/")[5]);
+                        System.out.println("Front Controller::: id = " + pathVar);
+                        managerController.showAllRequestsForOneEmployee(request, response, Integer.parseInt(pathVar));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case "/ers/employee/profile":

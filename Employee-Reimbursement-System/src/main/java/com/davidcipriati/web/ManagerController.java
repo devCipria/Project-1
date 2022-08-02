@@ -28,6 +28,7 @@ public class ManagerController {
         // replace sout with log4j
         System.out.println("Inside the showEmployeeList in ManagerController.java");
         response.setContentType("/application/json");
+        response.setCharacterEncoding("UTF-8");
         List<User> employeeList = userService.getAllEmployees();
         response.getWriter().write(objectMapper.writeValueAsString(employeeList));
         response.setStatus(200);
@@ -36,6 +37,7 @@ public class ManagerController {
     public void showAllPendingFromAllEmployees(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("Inside the showAllPendingFromAllEmployees in ManagerController.java");
         response.setContentType("/application/json");
+        response.setCharacterEncoding("UTF-8");
         List<Reimbursement> pendingList = reimbursementService.getAllPendingReimbursements();
         response.getWriter().write(objectMapper.writeValueAsString(pendingList));
         response.setStatus(200);
@@ -44,8 +46,21 @@ public class ManagerController {
     public void showAllResolvedFromAllEmployees(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("Inside the showAllResolvedFromAllEmployees in ManagerController.java");
         response.setContentType("/application/json");
+        response.setCharacterEncoding("UTF-8");
         List<Reimbursement> resolvedList = reimbursementService.getAllResolvedReimbursements();
         response.getWriter().write(objectMapper.writeValueAsString(resolvedList));
+        response.setStatus(200);
+    }
+
+    public void showAllRequestsForOneEmployee(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+        // error handling the id
+        // validate that the user is a manager
+        // verify that the user has logged in -- or not; maybe the first validation covers it.
+        System.out.println("Inside the showAllRequestsForOneEmployee in ManagerController.java");
+        response.setContentType("/application/json");
+        response.setCharacterEncoding("UTF-8");
+        List<Reimbursement> requestList = reimbursementService.getAllRequestByUserId(id);
+        response.getWriter().write(objectMapper.writeValueAsString(requestList));
         response.setStatus(200);
     }
 }

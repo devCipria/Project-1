@@ -1,7 +1,5 @@
 package com.davidcipriati.model;
 
-import java.math.BigDecimal;
-
 public class Reimbursement {
     private Integer reimbursementId;
     private Float amount;
@@ -9,26 +7,29 @@ public class Reimbursement {
     private Integer authorId;
     private Integer resolverId;
     private String status;
+    private String outcome;
     private String type;
 
     public Reimbursement(){}
 
-    public Reimbursement(Float amount, String description, Integer authorId, Integer resolverId, String status, String type) {
+    public Reimbursement(Float amount, String description, Integer authorId, Integer resolverId, String status, String outcome, String type) {
         this.amount = amount;
         this.description = description;
         this.authorId = authorId;
         this.resolverId = resolverId;
         this.status = status;
+        this.outcome = outcome;
         this.type = type;
     }
 
-    public Reimbursement(Integer reimbursementId, Float amount, String description, Integer authorId, Integer resolverId, String status, String type) {
+    public Reimbursement(Integer reimbursementId, Float amount, String description, Integer authorId, Integer resolverId, String status, String outcome, String type) {
         this.reimbursementId = reimbursementId;
         this.amount = amount;
         this.description = description;
         this.authorId = authorId;
         this.resolverId = resolverId;
         this.status = status;
+        this.outcome = outcome;
         this.type = type;
     }
 
@@ -80,6 +81,14 @@ public class Reimbursement {
         this.status = status;
     }
 
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(String outcome) {
+        this.outcome = outcome;
+    }
+
     public String getType() {
         return type;
     }
@@ -97,6 +106,7 @@ public class Reimbursement {
                 ", authorId=" + authorId +
                 ", resolverId=" + resolverId +
                 ", status='" + status + '\'' +
+                ", outcome='" + outcome + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }

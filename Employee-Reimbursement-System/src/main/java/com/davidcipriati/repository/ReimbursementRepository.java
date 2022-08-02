@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Types.NULL;
+
 public class ReimbursementRepository implements IReimbursementRepository {
     private DataSource dataSource;
 
@@ -19,7 +21,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
     public int createReimbursement(Reimbursement reimbursement) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "insert into reimbursement (amount, description, author_id, resolver_id, status, type) values (?, ?, ?, ?, ?, ?)";
+            String sql = "insert into reimbursement (amount, description, author_id, resolver_id, status, outcome, type) values (?, ?, ?, ?, ?, ?, ?)";
             String idSql = "select max(reimb_id) as reimb_id from reimbursement";
 
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -28,7 +30,8 @@ public class ReimbursementRepository implements IReimbursementRepository {
             ps.setInt(3, reimbursement.getAuthorId());
             ps.setNull(4, Types.NULL);
             ps.setString(5, reimbursement.getStatus());
-            ps.setString(6, reimbursement.getType());
+            ps.setString(6, reimbursement.getOutcome());
+            ps.setString(7, reimbursement.getType());
 
             ps.executeUpdate();
 
@@ -71,7 +74,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
 //        try (Connection connection = ConnectionManager.getConnection()) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=? AND status='Pending'";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where author_id=? AND status='Pending'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -84,6 +87,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                         rs.getInt("author_id"),
                         rs.getInt("resolver_id"),
                         rs.getString("status"),
+                        rs.getString("outcome"),
                         rs.getString("type")
                 );
                 pendingList.add(reimbursement);
@@ -103,7 +107,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
 //        try (Connection connection = ConnectionManager.getConnection()) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=? AND status='Resolved'";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where author_id=? AND status='Resolved'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -116,6 +120,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                         rs.getInt("author_id"),
                         rs.getInt("resolver_id"),
                         rs.getString("status"),
+                        rs.getString("outcome"),
                         rs.getString("type")
                 );
                 resolvedList.add(reimbursement);
@@ -134,7 +139,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
         List<Reimbursement> pendingList = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where status='Pending'";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where status='Pending'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -145,7 +150,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                   rs.getString("description"),
                   rs.getInt("author_id"),
                   rs.getInt("resolver_id"),
-                  rs.getString("status"),
+                  rs.getString("status"), rs.getString("outcome"),
                   rs.getString("type")
                 );
                 pendingList.add(reimbursement);
@@ -164,7 +169,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
         List<Reimbursement> resolvedList = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where status='Resolved'";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where status='Resolved'";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -176,6 +181,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                         rs.getInt("author_id"),
                         rs.getInt("resolver_id"),
                         rs.getString("status"),
+                        rs.getString("outcome"),
                         rs.getString("type")
                 );
                 resolvedList.add(reimbursement);
@@ -192,10 +198,9 @@ public class ReimbursementRepository implements IReimbursementRepository {
     @Override
     public List<Reimbursement> findAllByUserId(int userId) {
         List<Reimbursement> reimbursementList = new ArrayList<>();
-//        try (Connection connection = ConnectionManager.getConnection()) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where author_id=?";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where author_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -208,6 +213,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                         rs.getInt("author_id"),
                         rs.getInt("resolver_id"),
                         rs.getString("status"),
+                        rs.getString("outcome"),
                         rs.getString("type")
                 );
                 reimbursementList.add(reimbursement);
@@ -226,7 +232,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
         Reimbursement reimbursement = null;
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, type from reimbursement where reimb_id=?";
+            String sql = "select reimb_id, amount, description, author_id, resolver_id, status, outcome, type from reimbursement where reimb_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, reimbID);
             ResultSet rs = ps.executeQuery();
@@ -239,6 +245,7 @@ public class ReimbursementRepository implements IReimbursementRepository {
                         rs.getInt("author_id"),
                         rs.getInt("resolver_id"),
                         rs.getString("status"),
+                        rs.getString("outcome"),
                         rs.getString("type")
                 );
             }

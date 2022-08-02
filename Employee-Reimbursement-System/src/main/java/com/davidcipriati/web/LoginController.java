@@ -53,6 +53,7 @@ public class LoginController {
         }
     }
     public void logout(HttpServletRequest request, HttpServletResponse response) {
+        // Send the user a logout message
         request.getSession().setAttribute("validatedUser", null);
         request.getSession().invalidate();
         response.setStatus(200);

@@ -39,4 +39,8 @@ public class ReimbursementService {
         return repo.findByReimbursementId(id);
     }
 
+    public List<Reimbursement> getAllRequestByUserId(int id) {
+        return repo.findAllByUserId(id);
+    }
+
 }
