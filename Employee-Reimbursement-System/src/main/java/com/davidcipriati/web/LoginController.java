@@ -35,7 +35,7 @@ public class LoginController {
             User user = userService.getUserByUsername(username);
             HttpSession session = request.getSession();
             session.setAttribute("validatedUser", user);
-            session.setAttribute("isManager", user.getRole().equals("Manager") ? true : false);
+            session.setAttribute("isManager", user.getRole().equals("manager") ? true : false);
             // send back user profile -- but don't include password -- set up a special object: LoginResponse
             response.getWriter().write(objectMapper.writeValueAsString(user));
             response.setStatus(200);

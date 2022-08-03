@@ -50,22 +50,31 @@ public class ReimbursementRepository implements IReimbursementRepository {
         return -1;
     }
 
-    // wrong you have to know the resolver_id
-    // send in the entire reimbursement object
-    // you really only need the reimb_id and manager id
     @Override
-    public int updatePendingReimbursement(int reimbursementId) {
-        int row = -1;
-//        try (Connection connection = ConnectionManager.getConnection()) {
+    public boolean updateReimbursement(Reimbursement reimbursement) {
+        boolean updated = false;
+
         try {
             Connection connection = dataSource.getConnection();
+            String sql = "update reimbursement set amount=?, description=?, author_id=?, resolver_id=?, status=?, outcome=?, type=? where reimb_id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setFloat(1, reimbursement.getAmount());
+            ps.setString(2, reimbursement.getDescription());
+            ps.setInt(3, reimbursement.getAuthorId());
+            ps.setInt(4, reimbursement.getResolverId());
+            ps.setString(5, reimbursement.getStatus());
+            ps.setString(6, reimbursement.getOutcome());
+            ps.setString(7, reimbursement.getType());
+            ps.setInt(8, reimbursement.getReimbursementId());
+
+            updated = ps.executeUpdate() != 0 ? true : false;
 
         } catch (SQLException e) {
             e.printStackTrace();
             // logging
         }
 
-        return row;
+        return updated;
     }
 
     @Override

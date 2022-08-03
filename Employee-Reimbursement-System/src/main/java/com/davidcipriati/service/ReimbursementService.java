@@ -43,4 +43,8 @@ public class ReimbursementService {
         return repo.findAllByUserId(id);
     }
 
+    public boolean resolveReimbursement(Reimbursement reimbursement) {
+        return repo.updateReimbursement(reimbursement);
+    }
+
 }

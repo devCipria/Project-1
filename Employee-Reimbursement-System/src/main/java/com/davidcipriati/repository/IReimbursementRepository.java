@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IReimbursementRepository {
     int createReimbursement(Reimbursement reimbursement);
-    int updatePendingReimbursement(int reimbursementId);
+    boolean updateReimbursement(Reimbursement reimbursement);
     List<Reimbursement> findAllPendingByUserId(int userId);
     List<Reimbursement> findAllResolvedByUserId(int userId);
     List<Reimbursement> findAllPending();
