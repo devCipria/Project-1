@@ -2,11 +2,12 @@ package com.davidcipriati.web;
 
 import com.davidcipriati.repository.ReimbursementRepository;
 import com.davidcipriati.repository.UserRepository;
-import com.davidcipriati.service.ReimbursementService;
-import com.davidcipriati.service.UserService;
+import com.davidcipriati.services.ReimbursementService;
+import com.davidcipriati.services.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
@@ -33,9 +34,6 @@ public class ContextListener implements ServletContextListener {
         servletContextEvent.getServletContext().setAttribute("reimbursementService", reimbursementService);
 
 
-//        UserRepository userRepository = new UserRepository(dataSource);
-//
-//        servletContextEvent.getServletContext().setAttribute("userRepository", userRepository);
     }
 
     @Override

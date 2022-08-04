@@ -1,4 +1,4 @@
-package com.davidcipriati.service;
+package com.davidcipriati.services;
 
 import com.davidcipriati.model.User;
 import com.davidcipriati.repository.IUserRepository;

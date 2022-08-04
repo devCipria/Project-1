@@ -1,8 +1,9 @@
 package com.davidcipriati.web;
 
-import com.davidcipriati.service.ReimbursementService;
-import com.davidcipriati.service.UserService;
+import com.davidcipriati.services.ReimbursementService;
+import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.corba.se.impl.orbutil.ObjectWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,8 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/ers/*", "/ers/manager/requests/employee/*"})
 public class FrontControllerServlet extends HttpServlet {
     // put 1 ObjectMapper in ContextListener
-    private ObjectMapper om;
+//    private ObjectMapper objectMapper;
+//    private ObjectWriter objectWriter;
     private UserService userService;
     private ReimbursementService reimbursementService;
     private ManagerController managerController;
@@ -24,11 +26,11 @@ public class FrontControllerServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         System.out.println("Initializing Servlet");
-        om = new ObjectMapper();
+//        om = new ObjectMapper();
         userService = (UserService) getServletContext().getAttribute("userService");
         reimbursementService = (ReimbursementService) getServletContext().getAttribute("reimbursementService");
-        managerController = new ManagerController(userService, reimbursementService);
-        userController = new UserController(userService, reimbursementService);
+        managerController = new ManagerController(userService, reimbursementService, new ObjectMapper());
+        userController = new UserController(userService, reimbursementService, new ObjectMapper());
         loginController = new LoginController(userService);
     }
 

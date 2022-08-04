@@ -1,7 +1,7 @@
 package com.davidcipriati.web;
 
 import com.davidcipriati.model.User;
-import com.davidcipriati.service.UserService;
+import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
