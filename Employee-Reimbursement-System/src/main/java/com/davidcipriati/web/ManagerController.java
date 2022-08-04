@@ -5,12 +5,12 @@ import com.davidcipriati.model.User;
 import com.davidcipriati.services.ReimbursementService;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +35,10 @@ public class ManagerController {
 
         if (session != null && (Boolean) session.getAttribute("isManager")) {
             List<User> employeeList = userService.getAllEmployees();
+            for (User user : employeeList) {
+                user.setPassword("********************");
+            }
+
             response.getWriter().write(objectMapper.writeValueAsString(employeeList));
             response.setStatus(200);
             return response.getStatus();
@@ -136,7 +140,7 @@ public class ManagerController {
         }
     }
 
-    public void denyReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public int denyReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("Inside denyReimbursement in ManagerController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
@@ -161,9 +165,12 @@ public class ManagerController {
 
             response.getWriter().write(objectMapper.writeValueAsString(reimbursement));
             response.setStatus(200);
+            return response.getStatus();
+
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
             response.setStatus(403);
+            return response.getStatus();
         }
     }
     private String unauthorizedErrorMessage() {

@@ -3,7 +3,6 @@ package com.davidcipriati.web;
 import com.davidcipriati.model.User;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +23,9 @@ public class LoginController {
         System.out.println("Inside login method in the Login Controller");
         response.setContentType("/application/json");
 
-
         // Source --> https://stackoverflow.com/questions/8100634/get-the-post-request-body-from-httpservletrequest
         String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        User tempUser = new ObjectMapper().readValue(requestBody, User.class);
+        User tempUser = objectMapper.readValue(requestBody, User.class);
         String username = tempUser.getUsername();
         String password = tempUser.getPassword();
 
@@ -37,18 +35,18 @@ public class LoginController {
             session.setAttribute("validatedUser", user);
             session.setAttribute("isManager", user.getRole().equals("manager") ? true : false);
             // send back user profile -- but don't include password -- set up a special object: LoginResponse
+            user.setPassword("********************");
             response.getWriter().write(objectMapper.writeValueAsString(user));
             response.setStatus(200);
         } else {
             // Source -> https://stackoverflow.com/questions/35586643/how-to-add-error-message-to-response-body
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             String json = "{  \n" +
                     "   \"error\": \""+ "incorrect-user-pass" +"\",\n" +
                     "   \"message\": \""+ "Incorrect username and password" +"\",\n" +
                     "   \"detail\": \"Ensure that the username and password included in the request are correct\",\n" +
                     "}";
             response.getOutputStream().println(json);
-            response.setStatus(401); // or is it 403. It's 401. 403 would be useful when employee tries to do Manager actions
+            response.setStatus(401);
 
         }
     }

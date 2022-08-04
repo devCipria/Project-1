@@ -1,7 +1,6 @@
 package com.davidcipriati.controller;
 
-import com.davidcipriati.model.Reimbursement;
-import com.davidcipriati.model.User;
+import com.davidcipriati.model.*;
 import com.davidcipriati.repository.IReimbursementRepository;
 import com.davidcipriati.repository.IUserRepository;
 import com.davidcipriati.services.ReimbursementService;
@@ -11,19 +10,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
     private UserService userService;
     private IUserRepository userRepository;
@@ -36,6 +39,11 @@ public class UserControllerTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
+
+//    @Mock
+//    private ProfileResponseFactory prf;
+//    @Mock
+//    private ProfileResponse profileResponse;
 
     @Before
     public void init() {
@@ -52,20 +60,18 @@ public class UserControllerTest {
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         session = mock(HttpSession.class);
+
+//        when(prf.createProfileResponse(Matchers.anyInt(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(profileResponse);
     }
 
 
     @Test
     public void verify_showProfile() throws IOException {
-//        HttpServletRequest request = mock(HttpServletRequest.class);
-//        HttpServletResponse response = mock(HttpServletResponse.class);
-//        HttpSession session = mock(HttpSession.class);
 
         User user = new User(1, "user_john", "pass123", "John", "Doe", "john@gmail.com", "employee");
 
         when(request.getSession(false)).thenReturn(session);
         when(session.getAttribute("validatedUser")).thenReturn(user);
-        when(userService.getUserByUsername(user.getUsername())).thenReturn(user);
 
         // source --> https://stackoverflow.com/questions/23292132/mockito-and-httpservletresponse-write-output-to-textfile
         StringWriter stringWriter = new StringWriter();
@@ -133,14 +139,59 @@ public class UserControllerTest {
         Assert.assertEquals(200, userController.showResolvedRequestsByUserId(request, response));
     }
 
+    @Test
+    public void verify_submitRequest() throws IOException {
+        when(request.getSession(false)).thenReturn(session);
+        Reimbursement reimbursement = new Reimbursement(77.32f, "Gas", 1, 0, "Pending", null, "TRAVEL");
+
+        // source --> https://stackoverflow.com/questions/41542703/how-to-mock-http-post-with-applicationtype-json-with-mockito-java
+        when(request.getReader()).thenReturn(
+                new BufferedReader(new StringReader("Reimbursement")));
+
+        when(objectMapper.readValue(anyString(), Mockito.eq(Reimbursement.class))).thenReturn(reimbursement);
+
+        int reimbId = 1;
+        when(reimbursementService.createReimbursementRequest(reimbursement)).thenReturn(reimbId);
+        reimbursement = new Reimbursement(reimbId,77.32f, "Gas", 1, 0, "Pending", null, "TRAVEL");
+        when(reimbursementService.getByReimbursementId(reimbId)).thenReturn(reimbursement);
+
+        // source --> https://stackoverflow.com/questions/23292132/mockito-and-httpservletresponse-write-output-to-textfile
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+
+        when(objectMapper.writeValueAsString(reimbursement)).thenReturn("");
+        when(response.getWriter()).thenReturn(printWriter);
+        printWriter.flush();
+
+        when(response.getStatus()).thenReturn(200);
+        Assert.assertEquals(200, userController.submitRequest(request, response));
+    }
 
 
+    @Test
+    public void verify_editEmployeeProfile() throws IOException {
+        User user = new User(1, "user_john", "pass123", "John", "Doe", "john@gmail.com", "employee");
+        when(request.getSession(false)).thenReturn(session);
 
+        // source --> https://stackoverflow.com/questions/41542703/how-to-mock-http-post-with-applicationtype-json-with-mockito-java
+        when(request.getReader()).thenReturn(
+                new BufferedReader(new StringReader("User")));
 
+        when(objectMapper.readValue(anyString(), Mockito.eq(User.class))).thenReturn(user);
 
+        when(userService.editUserProfile(user)).thenReturn(true);
+        user = new User(1, "user_john", "password", "John", "Doe", "john@gmail.com", "employee");
+        when(userService.getUserByUsername(user.getUsername())).thenReturn(user);
 
+        // source --> https://stackoverflow.com/questions/23292132/mockito-and-httpservletresponse-write-output-to-textfile
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
 
+        when(objectMapper.writeValueAsString(user)).thenReturn("");
+        when(response.getWriter()).thenReturn(printWriter);
+        printWriter.flush();
 
-
-
+        when(response.getStatus()).thenReturn(200);
+        Assert.assertEquals(200, userController.editEmployeeProfile(request, response));
+    }
 }

@@ -188,6 +188,37 @@ public class ManagerControllerTest {
 
     }
 
+    @Test
+    public void verify_denyReimbursement() throws IOException {
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("isManager")).thenReturn(true);
+
+        User user = new User(2, "manager", "password", "John", "Doe", "manager@yahoo.com", "manager");
+        Reimbursement reimbursement = new Reimbursement(1, 77.32f, "Gas", 1, 0, "Pending", null, "TRAVEL");
+        when(session.getAttribute("validatedUser")).thenReturn(user);
+
+        // source --> https://stackoverflow.com/questions/41542703/how-to-mock-http-post-with-applicationtype-json-with-mockito-java
+        when(request.getReader()).thenReturn(
+                new BufferedReader(new StringReader("1")));
+
+        when(reimbursementService.getByReimbursementId(1)).thenReturn(reimbursement);
+
+        when(reimbursementService.resolveReimbursement(reimbursement)).thenReturn(true);
+
+        // source --> https://stackoverflow.com/questions/23292132/mockito-and-httpservletresponse-write-output-to-textfile
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+
+        when(objectMapper.writeValueAsString(reimbursement)).thenReturn("");
+        when(response.getWriter()).thenReturn(printWriter);
+        printWriter.flush();
+
+        when(response.getStatus()).thenReturn(200);
+
+        System.out.println(reimbursement);
+        Assert.assertEquals(200, managerController.denyReimbursement(request, response));
+    }
+
 
 
 

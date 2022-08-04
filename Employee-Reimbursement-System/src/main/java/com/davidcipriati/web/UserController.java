@@ -30,9 +30,10 @@ public class UserController {
         HttpSession session = request.getSession(false);
         if (session != null) {
             User user = (User) session.getAttribute("validatedUser");
-            user = userService.getUserByUsername(user.getUsername());
+
             response.getWriter().write(objectMapper.writeValueAsString(user));
             response.setStatus(200);
+
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
@@ -53,6 +54,7 @@ public class UserController {
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
+            response.setStatus(401);
             return response.getStatus();
         }
     }
@@ -74,43 +76,48 @@ public class UserController {
         }
     }
 
-    public void submitRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public int submitRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("inside the submitReques method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
             // Source --> https://stackoverflow.com/questions/8100634/get-the-post-request-body-from-httpservletrequest
             String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            Reimbursement reimbursement = new ObjectMapper().readValue(requestBody, Reimbursement.class);
+            Reimbursement reimbursement = objectMapper.readValue(requestBody, Reimbursement.class);
 
             int reimbId = reimbursementService.createReimbursementRequest(reimbursement);
             reimbursement = reimbursementService.getByReimbursementId(reimbId);
 
             response.getWriter().write(objectMapper.writeValueAsString(reimbursement));
             response.setStatus(200);
+            return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
             response.setStatus(401);
+            return response.getStatus();
         }
     }
 
-    public void editEmployeeProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public int editEmployeeProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("inside the editeEmployeeProfile method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
             // Source --> https://stackoverflow.com/questions/8100634/get-the-post-request-body-from-httpservletrequest
             String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            User user = new ObjectMapper().readValue(requestBody, User.class);
+            User user = objectMapper.readValue(requestBody, User.class);
 
             userService.editUserProfile(user);
             user = userService.getUserByUsername(user.getUsername());
 
             response.getWriter().write(objectMapper.writeValueAsString(user));
+
             response.setStatus(200);
+            return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
             response.setStatus(401);
+            return response.getStatus();
         }
 
     }
