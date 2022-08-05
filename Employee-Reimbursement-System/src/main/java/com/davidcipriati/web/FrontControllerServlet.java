@@ -3,7 +3,8 @@ package com.davidcipriati.web;
 import com.davidcipriati.services.ReimbursementService;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.corba.se.impl.orbutil.ObjectWriter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,50 +13,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Exposes every endpoint in the application and routes the request to a controller, which when combined
+ * with the methods in the services package, provides all the functionality of the app to the user
+ */
+
 @WebServlet(urlPatterns = {"/ers/*", "/ers/manager/requests/employee/*"})
 public class FrontControllerServlet extends HttpServlet {
-    // put 1 ObjectMapper in ContextListener
-//    private ObjectMapper objectMapper;
-//    private ObjectWriter objectWriter;
+
     private UserService userService;
     private ReimbursementService reimbursementService;
     private ManagerController managerController;
     private LoginController loginController;
     private UserController userController;
+    private static Logger log;
 
     @Override
     public void init() throws ServletException {
-        System.out.println("Initializing Servlet");
-//        om = new ObjectMapper();
         userService = (UserService) getServletContext().getAttribute("userService");
         reimbursementService = (ReimbursementService) getServletContext().getAttribute("reimbursementService");
         managerController = new ManagerController(userService, reimbursementService, new ObjectMapper());
         userController = new UserController(userService, reimbursementService, new ObjectMapper());
         loginController = new LoginController(userService);
+        log = LogManager.getLogger(FrontControllerServlet.class.getName());
+        log.info("FrontControllerServlet init()");
     }
+
+    /**
+     * Routes the URI, provided by the user, to the appropriate Controller class
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String URI = request.getRequestURI();
-        System.out.println(URI);
-//        System.out.println("getContextPath(): " + request.getContextPath());
-        System.out.println(request.getMethod());
-        System.out.println("getPathInfo(): " + request.getPathInfo());
+        log.info(request.getMethod() + "  " + URI);
+
+        // Get path variable
         String pathVar = request.getPathInfo();
-
-        // if URI contains /ers/manager/requests/employee/
-
         if (URI.contains("/ers/manager/requests/employee/") && pathVar !=  null) {
-            System.out.println("****** Inside the IF Statemtn ******");
             URI = request.getRequestURI().replace(pathVar, "");
             pathVar = pathVar.replace("/", "");
             System.out.println(pathVar);
             System.out.println(URI);
         }
-
-
-        // if url contains a path parameter, strip it out.
-        // put the path parameter in an id variable.
 
         switch (URI) {
             case "/ers/login":
@@ -64,7 +69,6 @@ public class FrontControllerServlet extends HttpServlet {
                 }
                 break;
             case "/ers/manager/employees":
-                // pass to ManagerController
                 if (request.getMethod().equals("GET")) {
                     managerController.showEmployeeList(request, response);
                 }
@@ -83,7 +87,6 @@ public class FrontControllerServlet extends HttpServlet {
                 System.out.println("hello, hello, hello");
                 if (request.getMethod().equals("GET")) {
                     try {
-                        System.out.println("Front Controller::: id = " + pathVar);
                         managerController.showAllRequestsForOneEmployee(request, response, Integer.parseInt(pathVar));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -127,6 +130,11 @@ public class FrontControllerServlet extends HttpServlet {
                 break;
             case "/ers/logout":
                 loginController.logout(request, response);
+                break;
+            default:
+                log.info("Client entered incorrect path");
+                response.getWriter().write("No resource found at " + URI);
+                response.setStatus(404);
         }
     }
 }

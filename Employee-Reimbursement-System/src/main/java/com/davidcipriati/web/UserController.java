@@ -5,6 +5,8 @@ import com.davidcipriati.model.User;
 import com.davidcipriati.services.ReimbursementService;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +15,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Provides the functionality of the application to employees. Displays the desired results to the user.
+ * The FrontControllerServlet routes the URI to the matching method in this class.
+ */
 public class UserController {
     private UserService userService;
     private ReimbursementService reimbursementService;
     private ObjectMapper objectMapper;
+    private static Logger log = LogManager.getLogger(UserController.class.getName());
+
 
     public UserController(UserService userService, ReimbursementService reimbursementService, ObjectMapper objectMapper) {
         this.userService = userService;
@@ -24,8 +32,14 @@ public class UserController {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Displays a logged in employee their profile
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public int showProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("inside the showProfile method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -34,6 +48,7 @@ public class UserController {
             response.getWriter().write(objectMapper.writeValueAsString(user));
             response.setStatus(200);
 
+            log.info(user.getUsername() + " has viewed their profile");
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
@@ -42,8 +57,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Displays all the pending requests of the employee
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public int showPendingRequestsByUserId(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("inside the showPendingRequestsByUserId method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -51,6 +72,9 @@ public class UserController {
             List<Reimbursement> pendingList = reimbursementService.getAllPendingByUserId(user.getUserId());
             response.getWriter().write(objectMapper.writeValueAsString(pendingList));
             response.setStatus(200);
+
+            log.info(user.getUsername() + " has viewed their pending requests");
+
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
@@ -59,8 +83,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Displays all the resolved requests of the employee
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public int showResolvedRequestsByUserId(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("inside the showResolvedRequestsByUserId method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -68,6 +98,8 @@ public class UserController {
             List<Reimbursement> resolvedList = reimbursementService.getAllResolvedByUserId(user.getUserId()); // what if user has no pending reimbursements ?
             response.getWriter().write(objectMapper.writeValueAsString(resolvedList));
             response.setStatus(200);
+            log.info(user.getUsername() + " has viewed their resolved requests");
+
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
@@ -76,8 +108,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Provides the employee the ability to submit a new reimbursement request
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public int submitRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("inside the submitReques method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -89,7 +127,9 @@ public class UserController {
             reimbursement = reimbursementService.getByReimbursementId(reimbId);
 
             response.getWriter().write(objectMapper.writeValueAsString(reimbursement));
-            response.setStatus(200);
+            response.setStatus(201);
+            log.info("Employee with ID:" + reimbursement.getAuthorId() + " has submitted a reimbursement request");
+
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());
@@ -98,8 +138,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Provides the employee the ability to edit their profile
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     public int editEmployeeProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("inside the editeEmployeeProfile method of UserController");
         response.setContentType("/application/json");
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -113,6 +159,7 @@ public class UserController {
             response.getWriter().write(objectMapper.writeValueAsString(user));
 
             response.setStatus(200);
+            log.info(user.getUsername() + " has edited their profile");
             return response.getStatus();
         } else {
             response.getOutputStream().println(unauthorizedErrorMessage());

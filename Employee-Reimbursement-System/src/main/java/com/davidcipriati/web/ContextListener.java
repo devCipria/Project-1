@@ -6,6 +6,8 @@ import com.davidcipriati.services.ReimbursementService;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContextEvent;
@@ -15,12 +17,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ContextListener implements ServletContextListener {
-    @Resource(name="jdbc/ersDB")
+    private static Logger log = LogManager.getLogger(ContextListener.class.getName());
+
+
+    @Resource(name="jdbc/ers")
     private DataSource dataSource;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-//        ServletContext context = servletContextEvent.getServletContext();
+        log.info("Context Listener initialized");
         try {
             Connection c = dataSource.getConnection();
         } catch (SQLException e) {
@@ -33,11 +38,10 @@ public class ContextListener implements ServletContextListener {
         ReimbursementService reimbursementService = new ReimbursementService(new ReimbursementRepository(dataSource));
         servletContextEvent.getServletContext().setAttribute("reimbursementService", reimbursementService);
 
-
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
+        log.info("Context Listener destoryed");
     }
 }

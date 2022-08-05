@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.davidcipriati.AppTest" time="0.024" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.davidcipriati.AppTest" time="0.021" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_333\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\trade\AppData\Local\Temp\surefire1121711891558677258\surefirebooter617371180543499740.jar C:\Users\trade\AppData\Local\Temp\surefire1121711891558677258 2022-08-01T16-44-46_836-jvmRun1 surefire6929678884324900342tmp surefire_04359795225245614273tmp"/>
+    <property name="sun.java.command" value="C:\Users\trade\AppData\Local\Temp\surefire540802584969072007\surefirebooter1964940716219371419.jar C:\Users\trade\AppData\Local\Temp\surefire540802584969072007 2022-08-04T19-16-33_880-jvmRun1 surefire1401861940858345762tmp surefire_03174634166732655368tmp"/>
     <property name="surefire.test.class.path" value="C:\dev\Revature\Project-1\Employee-Reimbursement-System\target\test-classes;C:\dev\Revature\Project-1\Employee-Reimbursement-System\target\classes;C:\Users\trade\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\trade\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\trade\.m2\repository\javax\servlet\javax.servlet-api\3.1.0\javax.servlet-api-3.1.0.jar;C:\Users\trade\.m2\repository\org\postgresql\postgresql\42.4.0\postgresql-42.4.0.jar;C:\Users\trade\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\trade\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.13.3\jackson-databind-2.13.3.jar;C:\Users\trade\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.13.3\jackson-annotations-2.13.3.jar;C:\Users\trade\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.13.3\jackson-core-2.13.3.jar;C:\Users\trade\.m2\repository\org\mockito\mockito-all\1.10.19\mockito-all-1.10.19.jar;C:\Users\trade\.m2\repository\org\apache\logging\log4j\log4j-api\2.18.0\log4j-api-2.18.0.jar;C:\Users\trade\.m2\repository\org\apache\logging\log4j\log4j-core\2.18.0\log4j-core-2.18.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\trade"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\trade\AppData\Local\Temp\surefire1121711891558677258\surefirebooter617371180543499740.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\trade\AppData\Local\Temp\surefire540802584969072007\surefirebooter1964940716219371419.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_333\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_333\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_333\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>

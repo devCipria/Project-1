@@ -183,7 +183,6 @@ public class ManagerControllerTest {
 
         when(response.getStatus()).thenReturn(200);
 
-        System.out.println(reimbursement);
         Assert.assertEquals(200, managerController.approveReimbursement(request, response));
 
     }
@@ -215,26 +214,6 @@ public class ManagerControllerTest {
 
         when(response.getStatus()).thenReturn(200);
 
-        System.out.println(reimbursement);
         Assert.assertEquals(200, managerController.denyReimbursement(request, response));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

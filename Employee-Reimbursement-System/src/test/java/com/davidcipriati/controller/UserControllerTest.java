@@ -11,8 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
-import org.mockito.Mock;
+
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -40,11 +39,6 @@ public class UserControllerTest {
     private HttpServletResponse response;
     private HttpSession session;
 
-//    @Mock
-//    private ProfileResponseFactory prf;
-//    @Mock
-//    private ProfileResponse profileResponse;
-
     @Before
     public void init() {
         userRepository = mock(IUserRepository.class);
@@ -61,7 +55,6 @@ public class UserControllerTest {
         response = mock(HttpServletResponse.class);
         session = mock(HttpSession.class);
 
-//        when(prf.createProfileResponse(Matchers.anyInt(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(profileResponse);
     }
 
 
@@ -88,9 +81,6 @@ public class UserControllerTest {
 
     @Test
     public void verify_showPendingRequestsByUserId() throws IOException {
-//        HttpServletRequest request = mock(HttpServletRequest.class);
-//        HttpServletResponse response = mock(HttpServletResponse.class);
-//        HttpSession session = mock(HttpSession.class);
 
         User user = new User(1, "user_john", "pass123", "John", "Doe", "john@gmail.com", "employee");
         List<Reimbursement> pendingReimbursements = new ArrayList<>();
@@ -163,8 +153,8 @@ public class UserControllerTest {
         when(response.getWriter()).thenReturn(printWriter);
         printWriter.flush();
 
-        when(response.getStatus()).thenReturn(200);
-        Assert.assertEquals(200, userController.submitRequest(request, response));
+        when(response.getStatus()).thenReturn(201);
+        Assert.assertEquals(201, userController.submitRequest(request, response));
     }
 
 

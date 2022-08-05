@@ -1,0 +1,158 @@
+2022-08-04 20:08:01,034 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-2] FrontControllerServlet init()
+2022-08-04 20:08:01,043 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-2] URI: /ers/login
+2022-08-04 20:08:01,043 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-2] HTTP verb: POST
+2022-08-04 20:08:09,385 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-4] URI: /ers/logout
+2022-08-04 20:08:09,386 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-4] HTTP verb: GET
+2022-08-04 20:44:28,760 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] FrontControllerServlet init()
+2022-08-04 20:44:28,770 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] URI: /ers/login
+2022-08-04 20:44:28,770 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] HTTP verb: POST
+2022-08-04 20:44:28,770 INFO c.d.w.LoginController [http-nio-8080-exec-5] User attempting to log in
+2022-08-04 20:44:29,227 INFO c.d.w.LoginController [http-nio-8080-exec-5] johndoe successfully logged in
+2022-08-04 20:44:32,737 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] URI: /ers/employee/profile
+2022-08-04 20:44:32,737 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] HTTP verb: GET
+2022-08-04 20:44:32,740 INFO c.d.w.UserController [http-nio-8080-exec-6] johndoe has viewed their profile
+2022-08-04 20:44:35,204 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-7] URI: /ers/employee/requests/pending
+2022-08-04 20:44:35,204 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-7] HTTP verb: GET
+2022-08-04 20:44:35,375 INFO c.d.w.UserController [http-nio-8080-exec-7] johndoe has viewed their pending requests
+2022-08-04 20:44:40,414 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-8] URI: /ers/employee/requests/resolved
+2022-08-04 20:44:40,415 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-8] HTTP verb: GET
+2022-08-04 20:44:40,555 INFO c.d.w.UserController [http-nio-8080-exec-8] johndoe has viewed their resolved requests
+2022-08-04 20:44:49,626 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-9] URI: /ers/employee/profile/update
+2022-08-04 20:44:49,626 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-9] HTTP verb: PUT
+2022-08-04 20:44:49,894 INFO c.d.w.UserController [http-nio-8080-exec-9] johndoe has edited their profile
+2022-08-04 20:44:58,889 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-10] URI: /ers/logout
+2022-08-04 20:44:58,889 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-10] HTTP verb: GET
+2022-08-04 20:44:58,889 INFO c.d.w.LoginController [http-nio-8080-exec-10] User logged out
+2022-08-04 20:45:02,216 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-1] URI: /ers/login
+2022-08-04 20:45:02,216 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-1] HTTP verb: POST
+2022-08-04 20:45:02,216 INFO c.d.w.LoginController [http-nio-8080-exec-1] User attempting to log in
+2022-08-04 20:45:02,443 INFO c.d.w.LoginController [http-nio-8080-exec-1] manager successfully logged in
+2022-08-04 20:45:06,484 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-2] URI: /ers/manager/employees
+2022-08-04 20:45:06,485 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-2] HTTP verb: GET
+2022-08-04 20:45:06,485 INFO c.d.w.ManagerController [http-nio-8080-exec-2] A manager has is getting the list of employees
+2022-08-04 20:45:08,480 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-4] URI: /ers/manager/requests/employee/1
+2022-08-04 20:45:08,480 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-4] HTTP verb: GET
+2022-08-04 20:45:08,481 INFO c.d.w.ManagerController [http-nio-8080-exec-4] A manager has accessed all requests from one employee
+2022-08-04 20:45:10,252 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-3] URI: /ers/manager/requests/pending
+2022-08-04 20:45:10,252 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-3] HTTP verb: GET
+2022-08-04 20:45:10,253 INFO c.d.w.ManagerController [http-nio-8080-exec-3] A manager has accessed all pending requests from all employees
+2022-08-04 20:45:12,210 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] URI: /ers/manager/requests/resolved
+2022-08-04 20:45:12,211 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] HTTP verb: GET
+2022-08-04 20:45:12,211 INFO c.d.w.ManagerController [http-nio-8080-exec-5] A manager has accessed all resolved requests from all employees
+2022-08-04 20:45:16,208 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] URI: /ers/logout
+2022-08-04 20:45:16,209 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] HTTP verb: GET
+2022-08-04 20:45:16,209 INFO c.d.w.LoginController [http-nio-8080-exec-6] User logged out
+2022-08-04 20:47:59,025 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-3] FrontControllerServlet init()
+2022-08-04 20:47:59,034 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-3] URI: /ers/login
+2022-08-04 20:47:59,034 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-3] HTTP verb: POST
+2022-08-04 20:47:59,034 INFO c.d.w.LoginController [http-nio-8080-exec-3] User attempting to log in
+2022-08-04 20:47:59,459 INFO c.d.w.LoginController [http-nio-8080-exec-3] johndoe successfully logged in
+2022-08-04 20:48:02,708 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] URI: /ers/logout
+2022-08-04 20:48:02,708 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-6] HTTP verb: GET
+2022-08-04 20:48:02,709 INFO c.d.w.LoginController [http-nio-8080-exec-6] User logged out
+2022-08-04 20:52:31,301 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] FrontControllerServlet init()
+2022-08-04 20:52:31,314 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] URI: /ers/logi
+2022-08-04 20:52:31,314 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] HTTP verb: POST
+2022-08-04 20:52:31,314 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-5] Client entered incorrect path
+2022-08-04 20:53:51,255 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-8] URI: /ers/xxxxxxxxxxx
+2022-08-04 20:53:51,256 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-8] HTTP verb: GET
+2022-08-04 20:53:51,256 INFO c.d.w.FrontControllerServlet [http-nio-8080-exec-8] Client entered incorrect path
+2022-08-04 21:01:40,677 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:01:40,686 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:01:40,693 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:01:40,695 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:01:40,696 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:01:40,699 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:01:40,704 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:01:40,705 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:01:40,707 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:01:40,709 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:01:40,712 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:02:42,105 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:02:42,112 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:02:42,118 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:02:42,120 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:02:42,122 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:02:42,125 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:02:42,127 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:02:42,128 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:02:42,130 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:02:42,131 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:02:42,133 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:02:50,182 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:02:50,196 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:02:50,202 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:02:50,204 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:02:50,205 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:02:50,208 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:02:50,210 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:02:50,211 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:02:50,214 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:02:50,216 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:02:50,219 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:05:52,440 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:05:52,447 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:05:52,453 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:05:52,455 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:05:52,456 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:05:52,459 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:05:52,461 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:05:52,463 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:05:52,464 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:05:52,466 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:05:52,467 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:06:00,098 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:06:00,110 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:06:00,116 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:06:00,117 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:06:00,118 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:06:00,121 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:06:00,123 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:06:00,124 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:06:00,126 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:06:00,127 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:06:00,128 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:06:57,316 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:06:57,323 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:06:57,329 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:06:57,331 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:06:57,332 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:06:57,335 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:06:57,337 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:06:57,339 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:06:57,341 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:06:57,344 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:06:57,346 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:07:04,393 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 21:07:04,407 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 21:07:04,413 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 21:07:04,417 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 21:07:04,419 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 21:07:04,422 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 21:07:04,424 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 21:07:04,425 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 21:07:04,427 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 21:07:04,428 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 21:07:04,430 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 22:37:00,921 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 22:37:00,929 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 22:37:00,935 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 22:37:00,941 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 22:37:00,942 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 22:37:00,945 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 22:37:00,946 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 22:37:00,947 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 22:37:00,948 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 22:37:00,949 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 22:37:00,952 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 22:37:14,909 INFO c.d.w.UserController [main] user_john has viewed their resolved requests
+2022-08-04 22:37:14,916 INFO c.d.w.UserController [main] user_john has viewed their pending requests
+2022-08-04 22:37:14,922 INFO c.d.w.UserController [main] Employee with ID:1 has submitted a reimbursement request
+2022-08-04 22:37:14,924 INFO c.d.w.UserController [main] user_john has edited their profile
+2022-08-04 22:37:14,925 INFO c.d.w.UserController [main] user_john has viewed their profile
+2022-08-04 22:37:14,928 INFO c.d.w.ManagerController [main] A manager has accessed all requests from one employee
+2022-08-04 22:37:14,931 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request
+2022-08-04 22:37:14,932 INFO c.d.w.ManagerController [main] A manager has is getting the list of employees
+2022-08-04 22:37:14,934 INFO c.d.w.ManagerController [main] A manager has accessed all resolved requests from all employees
+2022-08-04 22:37:14,935 INFO c.d.w.ManagerController [main] A manager has accessed all pending requests from all employees
+2022-08-04 22:37:14,937 INFO c.d.w.ManagerController [main] Manager: manager has approved a reimbursement request

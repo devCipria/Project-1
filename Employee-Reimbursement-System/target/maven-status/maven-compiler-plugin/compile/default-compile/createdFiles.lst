@@ -1,14 +1,14 @@
 com\davidcipriati\App.class
 com\davidcipriati\web\ManagerController.class
 com\davidcipriati\web\ContextListener.class
-com\davidcipriati\service\ReimbursementService.class
+com\davidcipriati\services\UserService.class
 com\davidcipriati\web\UserController.class
 com\davidcipriati\web\FrontControllerServlet.class
 com\davidcipriati\repository\IUserRepository.class
 com\davidcipriati\repository\ReimbursementRepository.class
 com\davidcipriati\repository\UserRepository.class
 com\davidcipriati\model\Reimbursement.class
+com\davidcipriati\services\ReimbursementService.class
 com\davidcipriati\web\LoginController.class
 com\davidcipriati\model\User.class
-com\davidcipriati\service\UserService.class
 com\davidcipriati\repository\IReimbursementRepository.class

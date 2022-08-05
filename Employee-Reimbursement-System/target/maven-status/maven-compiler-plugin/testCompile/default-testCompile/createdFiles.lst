@@ -1,1 +1,5 @@
+com\davidcipriati\controller\ManagerControllerTest.class
+com\davidcipriati\services\UserServiceTest.class
 com\davidcipriati\AppTest.class
+com\davidcipriati\controller\UserControllerTest.class
+com\davidcipriati\services\ReimbursementServiceTest.class

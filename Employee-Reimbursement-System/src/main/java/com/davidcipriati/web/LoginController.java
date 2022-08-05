@@ -3,6 +3,8 @@ package com.davidcipriati.web;
 import com.davidcipriati.model.User;
 import com.davidcipriati.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,16 +12,33 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+/**
+ * Handles the logging in and logging out of an employee or manager
+ */
 public class LoginController {
     private UserService userService;
     private ObjectMapper objectMapper;
+    private static Logger log = LogManager.getLogger(LoginController.class.getName());
 
+
+    /**
+     * Constructor for LoginController
+     * @param userService
+     */
     public LoginController(UserService userService) {
         this.userService = userService;
         objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Logs the user in. Sets a HttpSession attribute to the validated user
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     public void login (HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("User attempting to log in");
+
         System.out.println("Inside login method in the Login Controller");
         response.setContentType("/application/json");
 
@@ -38,7 +57,10 @@ public class LoginController {
             user.setPassword("********************");
             response.getWriter().write(objectMapper.writeValueAsString(user));
             response.setStatus(200);
+            log.info(user.getUsername() + " successfully logged in");
         } else {
+            log.info("User failed to log in. Incorrect username or password");
+
             // Source -> https://stackoverflow.com/questions/35586643/how-to-add-error-message-to-response-body
             String json = "{  \n" +
                     "   \"error\": \""+ "incorrect-user-pass" +"\",\n" +
@@ -47,11 +69,19 @@ public class LoginController {
                     "}";
             response.getOutputStream().println(json);
             response.setStatus(401);
-
         }
     }
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        // Send the user a logout message
+
+    /**
+     * Logs the user out of the application.
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("User logged out");
+        response.getWriter().write("You are now logged out");
+
         request.getSession().setAttribute("validatedUser", null);
         request.getSession().invalidate();
         response.setStatus(200);
